@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacky Gaming Overlay - Full Bottom Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #ff2a2a;
+      --text: #ffffff;
+      --glass: rgba(10,10,12,0.02);   /* much lighter */
+      --glass-strong: rgba(10,10,12,0.04);
+      --border: rgba(255,255,255,0.02);
+    }
+    html, body {
+      margin:0; padding:0; background: transparent; color: var(--text);
+      font-family: Inter, sans-serif; overflow: hidden; height: 100%;
+    }
+    .bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 40px;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.08); /* very light */
+  border-top: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(1px) saturate(110%);
+}
+
+    .section { display: flex; align-items: center; gap: 8px; }
+    .chip {
+      padding:4px 9px; border-radius: 999px;
+      background: rgba(255,42,42,0.12);
+      border: 1px solid rgba(255,42,42,0.2);
+      font-size:11px; font-weight:700; text-transform: uppercase;
+      font-family: Orbitron, sans-serif;
+    }
+    .text { font-weight:700; font-size: 14px; }
+    .accent { color: var(--accent); }
+    .logo { height: 30px; border-radius: 6px; opacity: 0.9; }
+    .yt-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 4px; font-weight: 700;
+      font-size: 13px; cursor: pointer; border: none;
+    }
+    .like-btn { background: #3ea6ff; color: #fff; }
+    .subscribe-btn { background: var(--accent); color: #fff; }
+    .middle-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .supporters {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .supporter-line {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .supporter-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bottom-bar">
+    <!-- Left: Game Title -->
+    <div class="section">
+      <span class="chip">Now Playing</span>
+      <span class="text">Valorant</span>
+    </div>
+
+    <!-- Middle: Like + Logo + Subscribe -->
+    <div class="middle-section">
+      <button class="yt-btn like-btn">👍 Like</button>
+      <img src="logo.png" alt="Logo" class="logo">
+      <span class="text accent">Jacky Gaming</span>
+      <button class="yt-btn subscribe-btn">🔔 Subscribe</button>
+    </div>
+
+    <!-- Right: GPay Supporters -->
+    <div class="supporters">
+      <div class="supporter-line">
+        <span class="chip">Last GPay Supporter</span>
+        <div class="supporter-name">
+          <span class="text accent">Dr Selin Jishnu</span>
+          <span class="text">₹111.11</span>
+        </div>
+      </div>
+
+      <div class="supporter-line">
+        <div class="supporter-name">
+          <span class="text accent">Dr Selin Jishnu</span>
+          <span class="text">₹22.22</span>
+        </div>
+      </div>
+<!--
+      <div class="supporter-line">
+        <div class="supporter-name">
+          <span class="text accent">Priya K</span>
+          <span class="text">₹75.00</span>
+        </div>
+-->
+      </div>
+    </div>
+  </div>
+</body>
+</html>
