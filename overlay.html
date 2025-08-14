@@ -11,7 +11,7 @@
     :root {
       --accent: #ff2a2a;
       --text: #ffffff;
-      --glass: rgba(10,10,12,0.02);   /* much lighter */
+      --glass: rgba(10,10,12,0.02);
       --glass-strong: rgba(10,10,12,0.04);
       --border: rgba(255,255,255,0.02);
     }
@@ -20,21 +20,20 @@
       font-family: Inter, sans-serif; overflow: hidden; height: 100%;
     }
     .bottom-bar {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 12px 40px;
-  border-radius: 0;
-  background: rgba(0, 0, 0, 0.08); /* very light */
-  border-top: 1px solid rgba(255,255,255,0.05);
-  backdrop-filter: blur(1px) saturate(110%);
-}
-
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 40px;
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.08);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(1px) saturate(110%);
+    }
     .section { display: flex; align-items: center; gap: 8px; }
     .chip {
       padding:4px 9px; border-radius: 999px;
@@ -93,31 +92,52 @@
       <button class="yt-btn subscribe-btn">🔔 Subscribe</button>
     </div>
 
-    <!-- Right: GPay Supporters -->
-    <div class="supporters">
-      <div class="supporter-line">
-        <span class="chip">Last GPay Supporter</span>
-        <div class="supporter-name">
-          <span class="text accent">Dr Selin Jishnu</span>
-          <span class="text">₹111.11</span>
-        </div>
-      </div>
-
-      <div class="supporter-line">
-        <div class="supporter-name">
-          <span class="text accent">Dr Selin Jishnu</span>
-          <span class="text">₹22.22</span>
-        </div>
-      </div>
-<!--
-      <div class="supporter-line">
-        <div class="supporter-name">
-          <span class="text accent">Priya K</span>
-          <span class="text">₹75.00</span>
-        </div>
--->
-      </div>
+    <!-- Right: GPay Supporters (Dynamic) -->
+    <div class="supporters" id="supporters-section">
+      <div class="text">Loading supporters...</div>
     </div>
   </div>
+
+  <script>
+    async function loadSupporters() {
+      try {
+        const res = await fetch('supporters.txt?cb=' + Date.now());
+        const data = await res.text();
+        const lines = data.trim().split('\n');
+        let html = '';
+        lines.forEach((line, index) => {
+          const [label, name, amount] = line.split('|');
+          if (index === 0) {
+            // First supporter: with chip
+            html += `
+              <div class="supporter-line">
+                <span class="chip">${label}</span>
+                <div class="supporter-name">
+                  <span class="text accent">${name}</span>
+                  <span class="text">${amount}</span>
+                </div>
+              </div>
+            `;
+          } else {
+            // Other supporters: no chip
+            html += `
+              <div class="supporter-line">
+                <div class="supporter-name">
+                  <span class="text accent">${name}</span>
+                  <span class="text">${amount}</span>
+                </div>
+              </div>
+            `;
+          }
+        });
+        document.getElementById('supporters-section').innerHTML = html;
+      } catch (err) {
+        console.error('Error loading supporters:', err);
+      }
+    }
+
+    loadSupporters();
+    setInterval(loadSupporters, 15000); // refresh every 15 seconds
+  </script>
 </body>
 </html>
